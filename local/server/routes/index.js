@@ -4,7 +4,6 @@ const router = express.Router();
 var mongoose = require('mongoose');
 var sanitize = require('mongo-sanitize');
 
-
 require('../user.js');
 var  User =  mongoose.model('User');
 
