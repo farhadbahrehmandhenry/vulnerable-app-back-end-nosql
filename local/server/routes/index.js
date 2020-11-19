@@ -10,7 +10,7 @@ var  User =  mongoose.model('User');
 
 router.post('/signup', function (req, res) {
   var newUser = new User(req.body);
-console.log(req.body)
+
   newUser.save(function(err,data){
     if(err){
         console.log(err)
@@ -27,7 +27,7 @@ router.post('/bad/login/nosql', async(req,res) => {
 
   try {
     User.findOne({userName: userName, password: password}, (err,data) => {
-      if(err) console.log(err)
+      if(err) res.sendStatus(500);
       else if(data) res.json(data);
       else console.log('Wrong Username Password Combination');
     })
@@ -44,7 +44,7 @@ router.post('/good/login/nosql', async (req,res) => {
 
   try {
     User.findOne({userName: sanitize(userName), password: sanitize(password)}, (err,data) => {
-      if(err) console.log(err)
+      if(err) res.sendStatus(500);
       else if(data) res.json(data);
       else console.log('Wrong Username Password Combination');
     })
