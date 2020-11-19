@@ -9,19 +9,21 @@ require('../user.js');
 var  User =  mongoose.model('User');
 
 router.post('/signup', function (req, res) {
-  var newUser = new User(req.body);
-console.log(req.body)
-  newUser.save(function(err,data){
-    if(err){
-        console.log(err)
-    }
-    else {
-      console.log('success')
-    }
-  })
+  try {
+    var newUser = new User(req.body);
+
+    newUser.save((err, data) => {
+      if(err) console.log(err)
+      else res.json(data);
+    })
+  }
+  catch (error) {
+    console.log(error)
+    res.sendStatus(500);
+  }
 });
 
-router.post('/bad/login/nosql', async(req,res) => {
+router.post('/bad/login/nosql', async(req, res) => {
   var userName = req.body.userName === '{"$gte": 0}' ? {"$gte": 0} : req.body.userName;
   var password = req.body.password === '{"$gte": 0}' ? {"$gte": 0} : req.body.password;
 
@@ -38,13 +40,16 @@ router.post('/bad/login/nosql', async(req,res) => {
   }
 });
 
-router.post('/good/login/nosql', async (req,res) => {
+router.post('/good/login/nosql', async (req, res) => {
   var userName = req.body.userName === '{"$gte": 0}' ? {"$gte": 0} : req.body.userName;
   var password = req.body.password === '{"$gte": 0}' ? {"$gte": 0} : req.body.password;
 
   try {
     User.findOne({userName: sanitize(userName), password: sanitize(password)}, (err,data) => {
-      if(err) console.log(err)
+      if(err) {
+        console.log(err)
+        res.sendStatus(500);
+      }  
       else if(data) res.json(data);
       else console.log('Wrong Username Password Combination');
     })
