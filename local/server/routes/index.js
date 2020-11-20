@@ -21,7 +21,7 @@ router.post('/signup', function (req, res) {
   }
 });
 
-router.post('/bad/login/nosql', async(req, res) => {
+router.post('/bad/nosql', async(req, res) => {
   var userName = req.body.userName === '{"$gte": 0}' ? {"$gte": 0} : req.body.userName;
   var password = req.body.password === '{"$gte": 0}' ? {"$gte": 0} : req.body.password;
 
@@ -37,7 +37,7 @@ router.post('/bad/login/nosql', async(req, res) => {
   }
 });
 
-router.post('/good/login/nosql', async (req, res) => {
+router.post('/good/nosql', async (req, res) => {
   var userName = req.body.userName === '{"$gte": 0}' ? {"$gte": 0} : req.body.userName;
   var password = req.body.password === '{"$gte": 0}' ? {"$gte": 0} : req.body.password;
 
