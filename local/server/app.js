@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/vulnerable', apiRouter);
 
 mongoose.connect('mongodb://localhost/dvna', {useNewUrlParser: true, useUnifiedTopology: true})
-.then(() => console.log( 'Database Connected' ))
+.then(() => console.log( 'Connected to mpngodb'))
 .catch(err => console.log( err ));;
 
 app.listen(3100, function () {

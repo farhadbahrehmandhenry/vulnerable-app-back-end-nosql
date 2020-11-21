@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var sanitize = require('mongo-sanitize');
 
 require('../user.js');
-var  User =  mongoose.model('User');
+var User =  mongoose.model('User');
 
 router.post('/signup', function (req, res) {
   try {
@@ -15,6 +15,18 @@ router.post('/signup', function (req, res) {
       if(err) res.sendStatus(500);
       else res.json(data);
     })
+  }
+  catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+router.post('/removeAll', function (req, res) {
+  try {
+    User.deleteMany({}, (err, result) => {
+      if (err) console.log(err)
+      else console.log('deleted all', result)
+    });
   }
   catch (error) {
     res.sendStatus(500);
