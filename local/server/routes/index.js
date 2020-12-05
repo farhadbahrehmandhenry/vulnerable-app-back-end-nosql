@@ -7,31 +7,31 @@ var sanitize = require('mongo-sanitize');
 require('../user.js');
 var User =  mongoose.model('User');
 
-router.post('/signup', function (req, res) {
-  try {
-    var newUser = new User(req.body);
+// router.post('/signup', function (req, res) {
+//   try {
+//     var newUser = new User(req.body);
 
-    newUser.save((err, data) => {
-      if(err) res.sendStatus(500);
-      else res.json(data);
-    })
-  }
-  catch (error) {
-    res.sendStatus(500);
-  }
-});
+//     newUser.save((err, data) => {
+//       if(err) res.sendStatus(500);
+//       else res.json(data);
+//     })
+//   }
+//   catch (error) {
+//     res.sendStatus(500);
+//   }
+// });
 
-router.post('/removeAll', function (req, res) {
-  try {
-    User.deleteMany({}, (err, result) => {
-      if (err) console.log(err)
-      else console.log('deleted all', result)
-    });
-  }
-  catch (error) {
-    res.sendStatus(500);
-  }
-});
+// router.post('/removeAll', function (req, res) {
+//   try {
+//     User.deleteMany({}, (err, result) => {
+//       if (err) console.log(err)
+//       else console.log('deleted all', result)
+//     });
+//   }
+//   catch (error) {
+//     res.sendStatus(500);
+//   }
+// });
 
 router.post('/bad/nosql', async(req, res) => {
   var userName = req.body.userName === '{"$gte": 0}' ? {"$gte": 0} : req.body.userName;
